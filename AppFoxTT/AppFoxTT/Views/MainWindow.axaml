@@ -1,0 +1,49 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:AppFoxTT.ViewModel;assembly=AppFoxTT.ViewModel"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AppFoxTT.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="AppFoxTT">
+
+    <Design.DataContext>
+        <viewModel:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Window.KeyBindings>
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding ScreenshotCommand}"></KeyBinding>
+    </Window.KeyBindings>
+
+	<Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Начало/Конец периода" HorizontalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal">
+                <DatePicker Name="StartDate" SelectedDate="{Binding StartDate}" Margin="0 0 20 0"/>
+                <DatePicker SelectedDate="{Binding EndDate}" Margin="0 0 20 0"/>
+                <Button Command="{Binding GetScreenshotCommand}" Content="Загрузить с сервера"></Button>
+            </StackPanel>
+            <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <ItemsRepeater Items="{Binding Images}">
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding}" Width="250" Height="250" />
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+                <ItemsRepeater.Layout>
+                    <UniformGridLayout MinColumnSpacing="5" MinRowSpacing="5"/>
+                </ItemsRepeater.Layout>
+            </ItemsRepeater>
+        </ScrollViewer>
+        
+    </Grid>
+</Window>
