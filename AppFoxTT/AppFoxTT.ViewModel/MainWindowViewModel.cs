@@ -148,7 +148,7 @@ namespace AppFoxTT.ViewModel
         {
             try
             {
-                if (startDate < endDate) (startDate, endDate) = (endDate, startDate);
+                if (startDate > endDate) (startDate, endDate) = (endDate, startDate);
 
                 using (HttpClient httpClient = new HttpClient())
                 {
